@@ -14,9 +14,12 @@ const ColorList = ({ colors, updateColors }) => {
 
   
  useEffect(() => {
-  const id = colors.map(color => color.id ) 
+ 
+    const id = colors.map(color => color.id ) 
   const itemInArr = colors.find(color => `${colorToEdit.id}` === id)
   if(itemInArr) setColorToEdit(itemInArr)
+   
+
  }, [colors])
  
   const editColor = color => {
@@ -26,7 +29,7 @@ const ColorList = ({ colors, updateColors }) => {
 
 
   const saveEdit = e => {
-    //e.preventDefault();
+    e.preventDefault();
     axiosWithAuth()
       .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
@@ -46,8 +49,15 @@ const ColorList = ({ colors, updateColors }) => {
     axiosWithAuth()
       .delete(`http://localhost:5000/api/colors/${color.id}`)
       .then(res => {
-        console.log(res);
-        updateColors(res.data)
+        let deleltedColor = colors.filter(color => {
+          if(color.id === res.data){
+            return null
+          } else{
+            return color
+          }
+        })
+        console.log('deleltedColor',deleltedColor);
+        updateColors(deleltedColor)
         setColorToEdit(initialColor)
       })
       .catch(err => console.log(err.response))
