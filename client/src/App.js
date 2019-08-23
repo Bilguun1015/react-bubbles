@@ -13,7 +13,9 @@ function App() {
       <div className="App">
         <Link to='/'>Login </Link>
         <Link to='/protected'>Protected Page </Link>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" render={props => (
+          <Login {...props} />
+        )}  />
         {/* 
           Build a PrivateRoute component that will 
           display BubblePage when you're authenticated 

@@ -9,7 +9,7 @@ const initialColor = {
 
 const ColorList = ({ colors, updateColors }) => {
   const [editing, setEditing] = useState(false);
-  const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [colorToEdit, setColorToEdit] = useState([initialColor]);
   console.log('colortoedit', colorToEdit)
 
   
@@ -17,7 +17,7 @@ const ColorList = ({ colors, updateColors }) => {
   const id = colors.map(color => color.id ) 
   const itemInArr = colors.find(color => `${colorToEdit.id}` === id)
   if(itemInArr) setColorToEdit(itemInArr)
- }, [colorToEdit])
+ }, [colors])
  
   const editColor = color => {
     setEditing(true);
